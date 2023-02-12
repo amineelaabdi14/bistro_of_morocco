@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('dishes', function (Blueprint $table) {
+            $table->id();
+            $table->string('dish_name');
+            $table->string('image')->nullable()->default(null);
+            $table->string('description');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('dishes');
     }
 };
