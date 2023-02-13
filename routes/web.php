@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DishesController::class,'index']);
 
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::get('/addDish',[DishesController::class,'index'])->name('addDish');
 
