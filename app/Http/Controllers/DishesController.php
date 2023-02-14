@@ -30,6 +30,7 @@ class DishesController extends Controller
     public function destroy(Dish $dish)
     {
         $dish->delete();
+        return redirect('/dashboard');
     }
 
     public function editDish(Request $req, Dish $dish)
