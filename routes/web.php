@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Dish;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DishesController;
 use Illuminate\Support\Facades\Route;
@@ -15,21 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DishesController::class,'index']);
+// Route::get('/', [DishesController::class,'index']); ->middleware(['auth', 'verified'])->name('dashboard')
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function () {
+    return view('welcome', [
+        'dishes' => Dish::all()
+    ]);
+});
+
+Route::get('/dashboard', [DishesController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('dishes', DishesController::class)
+    ->only(['index','create', 'store', 'edit' , 'update', 'destroy'])
+    ->middleware('auth');
 
 
-Route::get('/addDish',[DishesController::class,'index'])->name('addDish');
-
-Route::get('/edit',[DishesController::class,'index'])->name('edit-dish');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/update',[DishesController::class,'editDish'])->name('editDish');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

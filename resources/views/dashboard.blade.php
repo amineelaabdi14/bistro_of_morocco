@@ -29,30 +29,37 @@
                         </tr>
                     </thead>
                     <tbody class="bg-blue-600">
-                        <tr class="bg-white border-b text-base font-medium text-black ">
+                    @foreach ($dishes as $dish)
+                        <tr id="{{$dish["id"]}}" class="bg-white border-b text-base font-medium text-black ">
                             <th scope="row" class="py-4 px-6 font-medium ">
-                                ddd
+                            {{$dish["image"]}}
                             </th>
                             <td class="py-4 px-6 text-center">
-ss
+                            {{$dish["dish_name"]}}
                             </td>
                             <td class="py-4 px-6 text-center">
-dd
+                            {{$dish["description"]}}
                             </td>
                             <td class="flex items-center justify-center py-4 px-6 space-x-3">
-                                <a href="{{ route('edit-dish' ) }}">
-                                    <div class="flex justify-center items-center bg-blue-200 text-blue-600 rounded-md w-[7rem] h-[2.5rem] text-lg font-medium"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1b62b3"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg><span>Edit</span></div>
-                                </a>
-
-                                <a>
-                                    <div class="flex justify-center items-center bg-blue-200 text-blue-600 rounded-md w-[7rem] h-[2.5rem] text-lg font-medium"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1b62b3"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"/></svg><span>View</span></div>
-                                </a>
+                                <form action="{{ route("dishes.edit",$dish) }}"  method="POST">
+                                    @csrf
+                                    <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal" onclick="fillModal(this)">
+                                        <div class="flex justify-center items-center bg-blue-200 text-blue-600 rounded-md w-[7rem] h-[2.5rem] text-lg font-medium"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1b62b3"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg><span>Edit</span></div>
+                                    </button>
+                                </form>
+                                <form action="{{ route("dishes.destroy",$dish) }}" method="POST">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit">
+                                    <div  class="flex justify-center items-center bg-blue-200 text-blue-600 rounded-md w-[7rem] h-[2.5rem] text-lg font-medium"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1b62b3"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg><span>Remove</span></div>
+                                    </button>
+                                </form>
 
                             </td>                 
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
-
             
 <!-- Modal toggle -->
 <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -76,29 +83,37 @@ dd
             </div>
             <!-- Modal body -->
             <div class="p-6 space-y-6">
-                <form action="{{ route('addDish') }}"method="GET">
+                <form action="{{ route('dishes.store') }} "method="POST" id="add-form">
+                    @csrf
                     <div class="flex flex-col">
                         <label for="">Dish Name</label>
-                        <input type="text" class="rounded-lg">
+                        <input type="text" class="rounded-lg" name="title">
                         <label for="">Dish Description</label>
-                        <textarea name="" id="" cols="30" rows="10" class="rounded-lg"></textarea>
+                        <textarea name="description" id="" cols="30" rows="10" class="rounded-lg"></textarea>
                         <label for="">Dish image</label>
-                        <input type="file" >
+                        <input type="file" name="image">
+                        <input type="text" style="display:none;" id="foredit" name="foredit">
                     </div>
-                    
-                    <button data-modal-hide="defaultModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                    <button data-modal-hide="defaultModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="add-dish-btn">Add</button>
                     <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
                 </form>
             </div>
     </div>
 </div>
-
-
-
-
             </div>
         </div>
     </div>
+    <script>
+        function fillModal(element){
+            document.querySelector('input[name="title"]').value = element.parentElement.parentElement.parentElement.children[1].innerText;
+            document.querySelector('textarea[name="description"]').value = element.parentElement.parentElement.parentElement.children[2].innerText;
+            document.querySelector('input[name="title"]').value = element.parentElement.parentElement.parentElement.children[1].innerText;
+            document.getElementById('foredit').value=element.parentElement.parentElement.parentElement.id;
+            document.getElementById('add-form').setAttribute("action"," {{ route('editDish') }}");
+            document.getElementById('add-dish-btn').setAttribute("type",'submit');
+            
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 
 </x-app-layout>
