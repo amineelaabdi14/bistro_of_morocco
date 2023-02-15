@@ -38,7 +38,12 @@
                             {{$dish["dish_name"]}}
                             </td>
                             <td class="py-4 px-6 text-center">
-                            {{$dish["description"]}}
+                            @php
+                                if(strlen($dish["description"])>30) echo substr($dish["description"],0,20)."...";
+                                else
+                                    echo $dish["description"]
+                                
+                            @endphp
                             </td>
                             <td class="flex items-center justify-center py-4 px-6 space-x-3">
                                 <form action="{{ route("dishes.edit",$dish) }}"  method="POST">
@@ -60,7 +65,6 @@
                         @endforeach
                     </tbody>
                 </table>
-            
 <!-- Modal toggle -->
 <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
   Add Dish

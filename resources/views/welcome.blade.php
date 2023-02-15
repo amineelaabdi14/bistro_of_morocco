@@ -5,12 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <title>Ma7labaty</title>
-
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-       
-
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
@@ -31,23 +27,38 @@
         </div>
     </div>
 </nav>
- <!-- Carousel -->
- <div id="carouselExampleAutoplaying" class="carousel carousel-dark slide" data-bs-ride="carousel" >
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+<!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"> -->
+  <!-- <div class="carousel-inner" style="border: solid blue;">
+    <div class="carousel-item active" style="width:100px; margin:auto;border:solid red;">
+      <h2>google</h2>
     </div>
-    <div class="carousel-inner" >
-        <div class="carousel-item active">
-            <img src="../../image/1.jpg" class="d-block w-100" alt="..." style="max-height: 40rem"/>
-        </div>
-        <div class="carousel-item active">
-            <img src="../../image/2.jpg" class="d-block w-100" alt="..." style="max-height: 40rem"/>
-        </div>
-        <div class="carousel-item active">
-            <img src="../../image/3.jpg" class="d-block w-100" alt="..." style="max-height: 40rem"/>
-        </div>
+    <div class="carousel-item " style="width:100px;">
+      <h2>google1</h2>
+    </div>
+    <div class="carousel-item " style="width:100px;">
+      <h2>google2</h2>
+    </div>
+  </div>
+  <a class="carousel-control-prev text-dark" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next text-dark" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+ <!-- Carousel -->
+ <div id="carouselExampleAutoplaying" class="carousel carousel-dark slide" data-bs-ride="carousel"style="margin-top:300px;" >
+    
+    <div class="carousel-inner">
+        @foreach ($dishes as $dish)
+            <div class="carousel-item myItems">
+                <h2 class="text-center">{{$dish['dish_name']}}</h2>
+                <p class="text-center">{{$dish['description']}}</p>
+            </div>
+        @endforeach
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -58,19 +69,12 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-
-
-<section id="gallery">
-    <div class="container mt-3">
-        <h3 class="text-center fw-bold">Our Menus</h3>
-        <div class="row justify-content-center flex-wrap">
-    </div>
-  </div>
-  </section>
-
     
 
 
 </body>
+<script>
+    document.getElementsByClassName('myItems')[0].classList.add("active");
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </html>
